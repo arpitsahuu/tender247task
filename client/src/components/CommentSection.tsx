@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-export default function CommentSection({ postId }: { postId: string }) {
+export default function CommentSection() {
   const [comments, setComments] = useState<string[]>([])
   const [newComment, setNewComment] = useState('')
 

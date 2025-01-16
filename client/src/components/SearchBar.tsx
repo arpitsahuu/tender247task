@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { debounce } from 'lodash'
 import { searchPosts } from '../lib/posts'
-import { Post } from '../lib/posts'
 import Link from 'next/link'
+import { IPost } from '@/interfaces/Post'
 
 export default function SearchBar() {
   const [search, setSearch] = useState('')
-  const [results, setResults] = useState<Post[]>([])
+  const [results, setResults] = useState<IPost[]>([])
   const router = useRouter()
   
   // Debounced search function to avoid frequent API calls
@@ -62,11 +62,11 @@ export default function SearchBar() {
       </form>
 
       {/* Search results dropdown */}
-      {results.length > 0 && (
+      {results?.length > 0 && (
         <div className="absolute z-10 w-full mt-1 bg-white shadow-lg rounded-md max-h-60 overflow-auto">
-          {results.map((post:any) => (
+          {results.map((post:IPost) => (
             <Link
-              key={post.id}
+              key={post?._id}
               href={`/posts/${post?._id}`}
               className="block px-4 py-2 hover:bg-gray-100"
             >

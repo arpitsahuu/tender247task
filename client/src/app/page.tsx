@@ -2,12 +2,15 @@ import { getPosts } from '../lib/posts'
 import SearchBar from '../components/SearchBar'
 import Pagination from '../components/Pagination'
 import Card from '@/components/UI/Card'
+import { IPost } from '@/interfaces/Post'
+
 
 // Metadata for SEO purposes
 export const metadata = {
   title: 'Home',
   description: 'Welcome to my blog. Read the latest posts.',
 }
+
 
 export default async function Home({
   searchParams
@@ -16,10 +19,10 @@ export default async function Home({
 }) {
   // Parsing page number and search query from the URL (query params)
   const page = Number(searchParams.page) || 1;
-  const search = searchParams.search || '';
 
   // Parsing page number and search query from the URL (query params)
   const { posts, totalPages } = await getPosts(page, 5)
+
 
   return (
     <div className="space-y-8">
@@ -32,8 +35,8 @@ export default async function Home({
       {posts && posts.length > 0 &&
         <>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 px-5">
-            {posts && posts?.map((post: any) => (
-              <Card key={post._id} post={post} />
+            {posts && posts?.map((post: IPost) => (
+              <Card key={post?._id} post={post} />
             ))}
           </div>
 

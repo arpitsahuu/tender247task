@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import CommentSection from '../../../components/CommentSection'
 import { getPostById } from '@/lib/posts'
+import { IContentBlock } from '@/interfaces/Post'
 
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -52,13 +53,13 @@ export default async function Post({ params }: { params: { id: string } }) {
           By {post?.author} on {new Date(post?.createdAt).toLocaleDateString()}
         </p>
         <div className="mt-8 prose prose-indigo prose-lg text-gray-500 mx-auto">
-            {post?.content?.map((content:any) =>(
-                <div className='my-4' dangerouslySetInnerHTML={{ __html: content?.value }} />
+            {post?.content?.map((content:IContentBlock, index:number) =>(
+                <div key={index} className='my-4' dangerouslySetInnerHTML={{ __html: content?.value }} />
             ))}
         </div>
       </div>
       <div className="px-6 py-8 bg-gray-50 border-t border-gray-200">
-        <CommentSection postId={params.id} />
+        <CommentSection />
       </div>
     </article>
   )
